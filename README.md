@@ -24,7 +24,7 @@ The main goal of this project is to practice working with HTTP requests and asyn
 ## How to Run it
 1. Clone the repository: <br>
   git clone https://github.com/B-Oezocak/Film-Finder.git <br>
-2. In script.js, ...
+2. In "script.js", change the variable tmdbKey to your own API key.
 
 ## How to Run the Tests (bash)
 1. Clone the repository: <br>
