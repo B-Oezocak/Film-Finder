@@ -1,0 +1,18 @@
+{
+  "name": "film-finder",
+  "version": "1.0.0",
+  "description": "testing API functions",
+  "main": "./public/script.js)",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test/**/*_test.js"
+  },
+  "author": "Tigin",
+  "license": "ISC",
+  "devDependencies": {
+    "jsdom": "^24.1.1",
+    "mocha": "^10.7.3"
+  }
+}

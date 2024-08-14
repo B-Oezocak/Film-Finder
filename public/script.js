@@ -1,12 +1,30 @@
-const filmFinder = require("../../private/APIs.js");
+const filmAPI = require("../../private/APIs.js");
 
-const tmdbKey = filmFinder.APIKey;  //change this to your API key
+const tmdbKey = filmAPI.APIKey;  //change this to your API key
 const tmdbBaseUrl = "https://api.themoviedb.org/3";
 const playBtn = document.getElementById("playBtn");
 
-const getGenres = () => {
+const getGenres = async () => {
+  const genreRequestEndpoint = "/genre/movie/list";
+  const requestParams = `?api_key=${tmdbKey}`;
+  const urlFetch = `${tmdbBaseUrl}${genreRequestEndpoint}${requestParams}`;
 
-};
+  try {
+    const response = await fetch(urlFetch)
+    if (response.ok) {
+      const jsonResponse = await response.json();
+
+      console.log(jsonResponse);
+
+      const genres = jsonResponse.genres;
+
+      return genres;
+    }
+    throw new Error("Failed to fetch genres");
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 const getMovies = () => {
   const selectedGenre = getSelectedGenre();
@@ -26,5 +44,9 @@ const showRandomMovie = () => {
 
 };
 
-getGenres().then(populateGenreDropdown);
-playBtn.onclick = showRandomMovie;
+//getGenres().then(populateGenreDropdown);
+//playBtn.onclick = showRandomMovie;
+
+module.exports = {
+  getGenres,
+};
