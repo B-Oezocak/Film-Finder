@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD041 MD002 -->
 <div align="center">
-  <h1>📕 Film Finder 🎥</h1>
+  <h1>🎥 Film Finder 🎥</h1>
   <strong>An experimental film object to learn how to work with HTTP requests and asynchronous JavaScript to build an interactive app.</strong><br>
   <strong>Built by me.</strong>
 </div>
