@@ -1,5 +1,5 @@
 body {
-  background-color: #7f0920;
+  background-color: #09587f;
   color: #0a0408;
 }
 
@@ -7,7 +7,7 @@ body {
   text-align: center;
   margin: 0px auto;
   display: block;
-  font-family: 'Staatliches', sans-serif;
+  font-family: "Staatliches", sans-serif;
   font-size: 80px;
 }
 
@@ -15,7 +15,7 @@ body {
   text-align: center;
   margin: 0px auto;
   display: block;
-  font-family: 'Fredoka One', sans-serif;
+  font-family: "Fredoka One", sans-serif;
 }
 
 #movieInfo {
@@ -42,7 +42,7 @@ img#moviePoster {
 }
 
 #movieText {
-  font-family: 'Questrial';
+  font-family: "Questrial";
   color: #FEFBEA;
   line-height: 1.25;
 }
