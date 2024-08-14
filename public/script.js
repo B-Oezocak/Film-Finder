@@ -10,7 +10,7 @@ const getGenres = async () => {
   const urlFetch = `${tmdbBaseUrl}${genreRequestEndpoint}${requestParams}`;
 
   try {
-    const response = await fetch(urlFetch)
+    const response = await fetch(urlFetch);
     if (response.ok) {
       const jsonResponse = await response.json();
 
@@ -24,11 +24,10 @@ const getGenres = async () => {
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 const getMovies = () => {
   const selectedGenre = getSelectedGenre();
-
 };
 
 const getMovieInfo = () => {
@@ -40,12 +39,24 @@ const showRandomMovie = () => {
   const movieInfo = document.getElementById("movieInfo");
   if (movieInfo.childNodes.length > 0) {
     clearCurrentMovie();
-  };
-
+  }
 };
 
 //getGenres().then(populateGenreDropdown);
+getGenres().then((result) => {
+  if (typeof populateGenreDropdown === "function") {
+    populateGenreDropdown(result);
+  } else {
+    console.log("populateGenreDropdown function is not defined");
+  }
+});
+
 //playBtn.onclick = showRandomMovie;
+if (playBtn) {
+  playBtn.onclick = showRandomMovie;
+} else {
+  console.log("playBtn element not found");
+}
 
 module.exports = {
   getGenres,
