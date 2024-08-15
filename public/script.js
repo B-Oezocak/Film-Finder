@@ -14,7 +14,7 @@ const getGenres = async () => {
     if (response.ok) {
       const jsonResponse = await response.json();
 
-      console.log(jsonResponse);
+      //console.log(jsonResponse);
 
       const genres = jsonResponse.genres;
 
@@ -26,12 +26,54 @@ const getGenres = async () => {
   }
 };
 
-const getMovies = () => {
-  const selectedGenre = getSelectedGenre();
+const getMovies = async (testGenre) => {
+  let selectedGenre = "";
+  if (typeof getSelectedGenre === "function") {
+    selectedGenre = getSelectedGenre();
+  } else {
+    selectedGenre = testGenre;
+  }
+  //console.log(selectedGenre);
+  const discoverMovieEndpoint = "/discover/movie";
+  const requestParams = `?api_key=${tmdbKey}&genre=${selectedGenre}`;
+  const additionalParams = "&include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc";
+  const urlFetch = `${tmdbBaseUrl}${discoverMovieEndpoint}${requestParams}${additionalParams}`;
+
+  try {
+    const response = await fetch(urlFetch);
+    if (response.ok) {
+      const jsonResponse = await response.json();
+
+      const movies = jsonResponse.results;
+
+      return movies;
+    }
+    throw new Error("Failed to fetch movies");
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-const getMovieInfo = () => {
+const getMovieInfo = async (movie) => {
+  const movieId = movie.id;
+  const moviesDetailsEndpoint = "/movie";
+  const requestParams = `/${movieId}?api_key=${tmdbKey}`;
+  const additionalParams = "&language=en-US";
+  const urlFetch = `${tmdbBaseUrl}${moviesDetailsEndpoint}${requestParams}${additionalParams}`;
 
+  try {
+    const response = await fetch(urlFetch);
+    if (response.ok) {
+      const jsonResponse = await response.json();
+
+      const movieInfo = jsonResponse;
+
+      return movieInfo;
+    }
+    throw new Error("Failed to fetch info of movie");
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 // Gets a list of movies and ultimately displays the info of a random movie from the list
@@ -47,7 +89,7 @@ getGenres().then((result) => {
   if (typeof populateGenreDropdown === "function") {
     populateGenreDropdown(result);
   } else {
-    console.log("populateGenreDropdown function is not defined");
+    //console.log("populateGenreDropdown function is not defined");
   }
 });
 
@@ -55,9 +97,11 @@ getGenres().then((result) => {
 if (playBtn) {
   playBtn.onclick = showRandomMovie;
 } else {
-  console.log("playBtn element not found");
+  //console.log("playBtn element not found");
 }
 
 module.exports = {
   getGenres,
+  getMovies,
+  getMovieInfo,
 };

@@ -99,3 +99,17 @@ const displayMovie = (movieInfo) => {
   likeBtn.onclick = likeMovie;
   dislikeBtn.onclick = dislikeMovie;
 };
+
+module.exports = {
+  populateGenreDropdown,
+  getSelectedGenre,
+  showBtns,
+  clearCurrentMovie,
+  likeMovie,
+  dislikeMovie,
+  createMoviePoster,
+  createMovieTitle,
+  createMovieOverview,
+  getRandomMovie,
+  displayMovie,
+}
