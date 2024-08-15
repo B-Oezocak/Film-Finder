@@ -7,10 +7,10 @@ const playBtn = document.getElementById("playBtn");
 const getGenres = async () => {
   const genreRequestEndpoint = "/genre/movie/list";
   const requestParams = `?api_key=${tmdbKey}`;
-  const urlFetch = `${tmdbBaseUrl}${genreRequestEndpoint}${requestParams}`;
+  const urlToFetch = `${tmdbBaseUrl}${genreRequestEndpoint}${requestParams}`;
 
   try {
-    const response = await fetch(urlFetch);
+    const response = await fetch(urlToFetch);
     if (response.ok) {
       const jsonResponse = await response.json();
 
@@ -37,10 +37,10 @@ const getMovies = async (testGenre) => {
   const discoverMovieEndpoint = "/discover/movie";
   const requestParams = `?api_key=${tmdbKey}&genre=${selectedGenre}`;
   const additionalParams = "&include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc";
-  const urlFetch = `${tmdbBaseUrl}${discoverMovieEndpoint}${requestParams}${additionalParams}`;
+  const urlToFetch = `${tmdbBaseUrl}${discoverMovieEndpoint}${requestParams}${additionalParams}`;
 
   try {
-    const response = await fetch(urlFetch);
+    const response = await fetch(urlToFetch);
     if (response.ok) {
       const jsonResponse = await response.json();
 
@@ -59,10 +59,10 @@ const getMovieInfo = async (movie) => {
   const moviesDetailsEndpoint = "/movie";
   const requestParams = `/${movieId}?api_key=${tmdbKey}`;
   const additionalParams = "&language=en-US";
-  const urlFetch = `${tmdbBaseUrl}${moviesDetailsEndpoint}${requestParams}${additionalParams}`;
+  const urlToFetch = `${tmdbBaseUrl}${moviesDetailsEndpoint}${requestParams}${additionalParams}`;
 
   try {
-    const response = await fetch(urlFetch);
+    const response = await fetch(urlToFetch);
     if (response.ok) {
       const jsonResponse = await response.json();
 
@@ -77,11 +77,16 @@ const getMovieInfo = async (movie) => {
 };
 
 // Gets a list of movies and ultimately displays the info of a random movie from the list
-const showRandomMovie = () => {
+const showRandomMovie = async () => {
   const movieInfo = document.getElementById("movieInfo");
   if (movieInfo.childNodes.length > 0) {
     clearCurrentMovie();
   }
+
+  const movies = await getMovies();
+  const randomMovie = await getRandomMovie(movies);
+  const info = await getMovieInfo(randomMovie);
+  displayMovie(info);
 };
 
 //getGenres().then(populateGenreDropdown);
